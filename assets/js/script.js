@@ -6,6 +6,15 @@ function pad(value) {
   return String(value).padStart(2, '0');
 }
 
+function hidePreloader() { $('#preloader')?.classList.add('hide'); }
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(hidePreloader, 900);
+});
+window.addEventListener('load', () => {
+  setTimeout(hidePreloader, 200);
+  initScratchCard();
+});
+
 function updateTogetherCounter() {
   const now = new Date();
   let diff = Math.max(0, now.getTime() - WEDDING_DATE.getTime());
@@ -14,7 +23,9 @@ function updateTogetherCounter() {
   const minutes = Math.floor(diff / 60000); diff %= 60000;
   const seconds = Math.floor(diff / 1000);
 
-  $('#days').textContent = pad(days);
+  const dayEl = $('#days');
+  if (!dayEl) return;
+  dayEl.textContent = pad(days);
   $('#hours').textContent = pad(hours);
   $('#minutes').textContent = pad(minutes);
   $('#seconds').textContent = pad(seconds);
@@ -27,23 +38,23 @@ if (cursorGlow) {
   window.addEventListener('pointermove', (event) => {
     cursorGlow.style.left = `${event.clientX}px`;
     cursorGlow.style.top = `${event.clientY}px`;
-  });
+  }, { passive: true });
 }
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
   });
-}, { threshold: 0.14 });
+}, { threshold: 0.12 });
 $$('.reveal').forEach((item) => observer.observe(item));
 
 $$('[data-tilt]').forEach((card) => {
   card.addEventListener('pointermove', (event) => {
-    if (window.innerWidth < 980) return;
+    if (window.innerWidth < 1120) return;
     const rect = card.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(900px) rotateX(${y * -4.5}deg) rotateY(${x * 4.5}deg) translateY(-3px)`;
+    card.style.transform = `perspective(1000px) rotateX(${y * -4.2}deg) rotateY(${x * 4.2}deg) translateY(-4px)`;
   });
   card.addEventListener('pointerleave', () => {
     card.style.transform = '';
@@ -55,7 +66,8 @@ function showToast(message) {
   if (!toast) return;
   toast.textContent = message;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 1800);
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => toast.classList.remove('show'), 1900);
 }
 
 $$('[data-copy-link]').forEach((button) => {
@@ -85,15 +97,37 @@ function closeLightbox() {
   lightboxImage.src = '';
   document.body.style.overflow = '';
 }
-$$('[data-lightbox]').forEach((button) => {
-  button.addEventListener('click', () => openLightbox(button.dataset.lightbox));
-});
+function bindLightboxButtons(root = document) {
+  $$('[data-lightbox]', root).forEach((button) => {
+    if (button.dataset.boundLightbox) return;
+    button.dataset.boundLightbox = 'true';
+    button.addEventListener('click', () => openLightbox(button.dataset.lightbox));
+  });
+}
+bindLightboxButtons();
 $('#lightboxClose')?.addEventListener('click', closeLightbox);
 lightbox?.addEventListener('click', (event) => {
   if (event.target === lightbox) closeLightbox();
 });
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeLightbox();
+});
+
+const sliderTrack = $('#sliderTrack');
+let sliderIndex = 0;
+function moveSlider(direction) {
+  if (!sliderTrack) return;
+  const slides = $$('.slide-card', sliderTrack);
+  if (!slides.length) return;
+  sliderIndex = Math.max(0, Math.min(slides.length - 1, sliderIndex + direction));
+  const slideWidth = slides[0].getBoundingClientRect().width + 18;
+  sliderTrack.style.transform = `translateX(${-sliderIndex * slideWidth}px)`;
+}
+$('#sliderPrev')?.addEventListener('click', () => moveSlider(-1));
+$('#sliderNext')?.addEventListener('click', () => moveSlider(1));
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 760 && sliderTrack) sliderTrack.style.transform = '';
+  else moveSlider(0);
 });
 
 const tasks = [
@@ -105,14 +139,15 @@ const tasks = [
   'Cute argument limit: only two minutes today.',
   'Both must smile and say Alhamdulillah.',
   'Groom gets permission to be dramatic for 5 minutes.',
-  'Bride gets VIP treatment for the whole day.'
+  'Bride gets VIP treatment for the whole day.',
+  'Both must replay the wedding film today.'
 ];
 let spinDegree = 0;
 $('#spinBtn')?.addEventListener('click', () => {
   const wheel = $('#wheel');
   const result = $('#spinResult');
   if (!wheel || !result) return;
-  const randomSpin = 1080 + Math.floor(Math.random() * 720);
+  const randomSpin = 1100 + Math.floor(Math.random() * 900);
   spinDegree += randomSpin;
   wheel.style.transform = `rotate(${spinDegree}deg)`;
   result.textContent = 'Spinning... wait for the cute result.';
@@ -135,6 +170,7 @@ function initScratchCard() {
 
   function drawCover() {
     const rect = surface.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
     const ratio = Math.max(window.devicePixelRatio || 1, 1);
     canvas.width = Math.round(rect.width * ratio);
     canvas.height = Math.round(rect.height * ratio);
@@ -145,26 +181,27 @@ function initScratchCard() {
     const height = rect.height;
 
     const gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#063d9b');
-    gradient.addColorStop(0.35, '#c89b3d');
-    gradient.addColorStop(0.65, '#ff7aa7');
-    gradient.addColorStop(1, '#087a60');
+    gradient.addColorStop(0, '#102f92');
+    gradient.addColorStop(0.28, '#0b56c5');
+    gradient.addColorStop(0.55, '#c99b3e');
+    gradient.addColorStop(0.78, '#ff74ab');
+    gradient.addColorStop(1, '#0b826c');
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
 
-    ctx.fillStyle = 'rgba(255, 250, 241, .92)';
-    ctx.font = '900 22px Inter, sans-serif';
+    ctx.fillStyle = 'rgba(255, 250, 241, .94)';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('Scratch to reveal', width / 2, height / 2 - 14);
-    ctx.font = '700 13px Inter, sans-serif';
+    ctx.font = '900 22px Inter, sans-serif';
+    ctx.fillText('Scratch to reveal', width / 2, height / 2 - 16);
+    ctx.font = '800 13px Inter, sans-serif';
     ctx.fillText('a dua for the couple', width / 2, height / 2 + 20);
 
-    ctx.fillStyle = 'rgba(255,255,255,.22)';
-    for (let i = 0; i < 55; i += 1) {
+    ctx.fillStyle = 'rgba(255,255,255,.2)';
+    for (let i = 0; i < 72; i += 1) {
       ctx.beginPath();
-      ctx.arc(Math.random() * width, Math.random() * height, Math.random() * 2.2 + .6, 0, Math.PI * 2);
+      ctx.arc(Math.random() * width, Math.random() * height, Math.random() * 2.6 + .6, 0, Math.PI * 2);
       ctx.fill();
     }
   }
@@ -196,7 +233,6 @@ function initScratchCard() {
   });
   drawCover();
 }
-window.addEventListener('load', initScratchCard);
 
 $('#letterBtn')?.addEventListener('click', (event) => {
   event.currentTarget.classList.toggle('open');
@@ -210,7 +246,8 @@ const compliments = [
   'Made for each other, framed for forever.',
   'Every photo looks like a movie poster.',
   'Soft love, premium vibe, royal couple energy.',
-  'A beautiful beginning with a calm, classy glow.'
+  'A beautiful beginning with a calm, classy glow.',
+  'This is not just a couple — this is a whole vibe.'
 ];
 $('#complimentBtn')?.addEventListener('click', () => {
   const target = $('#complimentText');
@@ -235,13 +272,51 @@ let lastHeartTime = 0;
 document.addEventListener('click', (event) => {
   if (event.target.closest('button,a,video,.lightbox')) return;
   const now = Date.now();
-  if (now - lastHeartTime < 220) return;
+  if (now - lastHeartTime < 200) return;
   lastHeartTime = now;
   const heart = document.createElement('span');
   heart.className = 'float-heart';
-  heart.textContent = ['❤', '💕', '✨', '🌸', '💙'][Math.floor(Math.random() * 5)];
+  heart.textContent = ['💙', '💕', '✨', '🌸', '💍', '🤍'][Math.floor(Math.random() * 6)];
   heart.style.left = `${event.clientX - 10}px`;
   heart.style.top = `${event.clientY - 10}px`;
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 1400);
+  setTimeout(() => heart.remove(), 1500);
 });
+
+let rainOn = true;
+const rainLayer = $('#emojiRain');
+const rainEmojis = ['💙', '🤍', '💕', '✨', '🌸', '💫', '💍'];
+function createRainDrop() {
+  if (!rainOn || !rainLayer || document.hidden) return;
+  const drop = document.createElement('span');
+  drop.className = `rain-drop ${Math.random() > .55 ? 'soft' : ''}`;
+  drop.textContent = rainEmojis[Math.floor(Math.random() * rainEmojis.length)];
+  const startX = Math.random() * 100;
+  const drift = (Math.random() * 26) - 13;
+  const duration = 6.8 + Math.random() * 5.5;
+  const size = 12 + Math.random() * 15;
+  drop.style.left = '0px';
+  drop.style.fontSize = `${size}px`;
+  drop.style.setProperty('--x-start', `${startX}vw`);
+  drop.style.setProperty('--x-end', `${startX + drift}vw`);
+  drop.style.setProperty('--rotate', `${(Math.random() * 240) - 120}deg`);
+  drop.style.setProperty('--scale', `${.75 + Math.random() * .65}`);
+  drop.style.setProperty('--opacity', `${.38 + Math.random() * .44}`);
+  drop.style.animationDuration = `${duration}s`;
+  rainLayer.appendChild(drop);
+  setTimeout(() => drop.remove(), duration * 1000 + 400);
+}
+let rainTimer = setInterval(createRainDrop, 250);
+for (let i = 0; i < 18; i += 1) setTimeout(createRainDrop, i * 95);
+$('#rainToggle')?.addEventListener('click', (event) => {
+  rainOn = !rainOn;
+  event.currentTarget.classList.toggle('off', !rainOn);
+  showToast(rainOn ? 'Love rain on' : 'Love rain off');
+  if (!rainOn && rainLayer) rainLayer.innerHTML = '';
+});
+
+// Keep the rain light on very small/slow screens.
+if (window.matchMedia('(max-width: 480px)').matches) {
+  clearInterval(rainTimer);
+  rainTimer = setInterval(createRainDrop, 430);
+}
