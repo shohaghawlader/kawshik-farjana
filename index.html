@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Kawshik & Farjana | Royal Couple Memory</title>
+  <meta name="description" content="A premium couple memory website for Kawshik Anan Chayan and Farjana Fardousi Maria." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700;800&family=Great+Vibes&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="ambient-bg" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="spark s1">✦</span>
+    <span class="spark s2">✧</span>
+    <span class="spark s3">❤</span>
+  </div>
+
+  <header class="site-header">
+    <a href="#top" class="brand" aria-label="Go to top">
+      <span class="brand-mark">KF</span>
+      <span class="brand-text">Royal Memory</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#film">Film</a>
+      <a href="#memories">Memories</a>
+      <a href="#arcade">Love Arcade</a>
+    </nav>
+    <button class="header-btn" type="button" data-copy-link>Share</button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell reveal">
+      <div class="hero-copy">
+        <p class="eyebrow">Premium Couple Memory</p>
+        <p class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+        <h1><span>Kawshik</span><em>&</em><span>Farjana</span></h1>
+        <p class="hero-subtitle">A royal blue love story, captured in cinema, smiles and a beautiful forever.</p>
+        <div class="hero-actions">
+          <a href="#film" class="btn btn-primary">Watch Their Film</a>
+          <a href="#arcade" class="btn btn-light">Play Love Arcade</a>
+        </div>
+      </div>
+
+      <div class="hero-media" data-tilt>
+        <img src="assets/images/hero-wide.jpg" alt="Kawshik and Farjana cinematic wedding portrait" />
+        <div class="hero-media-overlay"></div>
+        <div class="date-chip">
+          <span>Forever began</span>
+          <strong>16 May</strong>
+          <small>2026</small>
+        </div>
+        <a class="floating-film-card" href="#film" aria-label="Go to wedding film">
+          <span class="play-dot">▶</span>
+          <span><b>Wedding Film</b><small>Now added</small></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section-block reveal" aria-labelledby="counterTitle">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">Together Since</p>
+          <h2 id="counterTitle">Every second of forever, counting live.</h2>
+        </div>
+        <p class="section-note">Instead of a countdown, this remembers how long their beautiful journey has already been shining.</p>
+      </div>
+      <div class="counter-grid" aria-live="polite">
+        <div class="counter-card"><strong id="days">00</strong><span>Days</span></div>
+        <div class="counter-card"><strong id="hours">00</strong><span>Hours</span></div>
+        <div class="counter-card"><strong id="minutes">00</strong><span>Minutes</span></div>
+        <div class="counter-card"><strong id="seconds">00</strong><span>Seconds</span></div>
+      </div>
+    </section>
+
+    <section class="film-section section-block reveal" id="film" aria-labelledby="filmTitle">
+      <div class="film-layout">
+        <div class="film-copy glass-panel">
+          <p class="eyebrow">Cinematic Memory</p>
+          <h2 id="filmTitle">The trailer is ready — no demo placeholder.</h2>
+          <p>Play the video directly from this website. It is optimized for web loading and keeps the premium memory page complete.</p>
+          <div class="film-stat-row">
+            <span><b>39s</b> Trailer</span>
+            <span><b>HD</b> Video</span>
+            <span><b>Royal</b> Theme</span>
+          </div>
+        </div>
+        <div class="video-stage" data-tilt>
+          <video id="weddingVideo" controls playsinline preload="metadata" poster="assets/video/wedding-poster.jpg">
+            <source src="assets/video/wedding-film.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-shine" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block reveal" id="memories" aria-labelledby="memoriesTitle">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">Signature Frames</p>
+          <h2 id="memoriesTitle">Photos that feel like a royal album.</h2>
+        </div>
+        <p class="section-note">Only couple-focused photos. Tap any frame to view it in a clean premium lightbox.</p>
+      </div>
+      <div class="gallery-grid">
+        <button class="photo-card photo-wide" type="button" data-lightbox="assets/images/hero-wide.jpg"><img src="assets/images/hero-wide.jpg" alt="Couple forehead touch"><span>Forever Started Here</span></button>
+        <button class="photo-card" type="button" data-lightbox="assets/images/portrait-06.jpg"><img src="assets/images/portrait-06.jpg" alt="Couple close portrait"><span>Made For Each Other</span></button>
+        <button class="photo-card" type="button" data-lightbox="assets/images/portrait-07.jpg"><img src="assets/images/portrait-07.jpg" alt="Couple looking at each other"><span>Royal Blue Glow</span></button>
+        <button class="photo-card photo-tall" type="button" data-lightbox="assets/images/portrait-01.jpg"><img src="assets/images/portrait-01.jpg" alt="Bride portrait with groom"><span>Elegant Frame</span></button>
+        <button class="photo-card" type="button" data-lightbox="assets/images/portrait-08.jpg"><img src="assets/images/portrait-08.jpg" alt="Couple hand moment"><span>Soft Promise</span></button>
+        <button class="photo-card" type="button" data-lightbox="assets/images/portrait-02.jpg"><img src="assets/images/portrait-02.jpg" alt="Couple standing together"><span>Blue & Gold</span></button>
+        <button class="photo-card" type="button" data-lightbox="assets/images/portrait-03.jpg"><img src="assets/images/portrait-03.jpg" alt="Couple sitting together"><span>Grand Portrait</span></button>
+        <button class="photo-card" type="button" data-lightbox="assets/images/portrait-04.jpg"><img src="assets/images/portrait-04.jpg" alt="Bride looking at groom"><span>The Look</span></button>
+      </div>
+    </section>
+
+    <section class="arcade-intro section-block reveal" id="arcade" aria-labelledby="arcadeTitle">
+      <div class="arcade-title-card">
+        <p class="eyebrow">Love Arcade</p>
+        <h2 id="arcadeTitle">Fun part, but premium — not mixed together.</h2>
+        <p>Each interaction gets its own space, clean animation, smooth mobile layout and a more attractive playful vibe.</p>
+      </div>
+    </section>
+
+    <section class="arcade-showcase reveal" aria-labelledby="wheelTitle">
+      <div class="game-copy">
+        <span class="game-number">01</span>
+        <p class="eyebrow">Spin Moment</p>
+        <h2 id="wheelTitle">Spin the Royal Love Wheel.</h2>
+        <p>One tap unlocks a cute couple task. The wheel rotates smoothly and gives a random premium/funny result.</p>
+        <p class="game-result" id="spinResult">Ready to unlock their first cute task?</p>
+      </div>
+      <div class="wheel-panel glass-panel">
+        <div class="wheel-pointer" aria-hidden="true"></div>
+        <div class="love-wheel" id="wheel" aria-hidden="true">
+          <span>LOVE</span>
+        </div>
+        <button class="btn btn-primary" type="button" id="spinBtn">Spin Love Wheel</button>
+      </div>
+    </section>
+
+    <section class="arcade-showcase reverse reveal" aria-labelledby="magicTitle">
+      <div class="game-copy">
+        <span class="game-number">02</span>
+        <p class="eyebrow">Hidden Note</p>
+        <h2 id="magicTitle">A blur love message with a cinematic reveal.</h2>
+        <p>Tap the glass card. The note opens with a soft shimmer and turns into a clean romantic message.</p>
+      </div>
+      <div class="magic-panel glass-panel">
+        <button class="secret-note" type="button" id="blurMessage">
+          <span class="locked-text">Tap to reveal the secret note</span>
+          <span class="revealed-text">The best part was not the lights, the stage, or the camera — it was the way they looked at each other.</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="arcade-showcase reveal" aria-labelledby="scratchTitle">
+      <div class="game-copy">
+        <span class="game-number">03</span>
+        <p class="eyebrow">Scratch Blessing</p>
+        <h2 id="scratchTitle">Scratch the golden card to unlock a dua.</h2>
+        <p>Mobile friendly. Use finger or mouse to reveal the blessing hidden inside the card.</p>
+        <button class="btn btn-light small-btn" type="button" id="resetScratch">Reset Card</button>
+      </div>
+      <div class="scratch-panel glass-panel">
+        <div class="scratch-surface">
+          <p>May Allah place barakah in this union and fill their home with love, peace and mercy.</p>
+          <canvas id="scratchCanvas" aria-label="Scratch card blessing"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="premium-fun-grid section-block reveal" aria-label="More fun interactions">
+      <article class="mini-game glass-panel envelope-game">
+        <p class="eyebrow">Love Letter</p>
+        <h3>Open the premium envelope.</h3>
+        <button class="envelope" id="letterBtn" type="button" aria-label="Open love letter"><span></span></button>
+        <p class="letter-text" id="letterText">Dear Kawshik & Farjana — may your journey always feel soft, safe, funny and full of mercy.</p>
+      </article>
+
+      <article class="mini-game glass-panel chemistry-game">
+        <p class="eyebrow">Chemistry Meter</p>
+        <h3>Check their couple energy.</h3>
+        <div class="meter"><span id="meterFill"></span></div>
+        <p class="meter-score" id="meterScore">Tap to test the vibe.</p>
+        <button class="btn btn-primary" type="button" id="meterBtn">Run Love Test</button>
+      </article>
+
+      <article class="mini-game glass-panel compliment-game">
+        <p class="eyebrow">Compliment Button</p>
+        <h3>Generate a sweet line.</h3>
+        <p class="compliment-text" id="complimentText">This couple has premium main-character energy.</p>
+        <button class="btn btn-light" type="button" id="complimentBtn">New Compliment</button>
+      </article>
+    </section>
+
+    <section class="final-section reveal">
+      <div class="final-card">
+        <p class="eyebrow">Shareable Memory</p>
+        <h2>Two hearts. One promise. A lifetime to go.</h2>
+        <p>Send the website link to anyone who should relive this royal blue love story.</p>
+        <div class="final-actions">
+          <button class="btn btn-primary" type="button" data-copy-link>Copy Website Link</button>
+          <a class="btn btn-light" href="#top">Back to Top</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Photo preview">
+    <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Close preview">×</button>
+    <img id="lightboxImage" src="" alt="Expanded couple memory" />
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Link copied</div>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
